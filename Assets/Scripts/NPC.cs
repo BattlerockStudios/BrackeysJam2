@@ -17,15 +17,7 @@ public class NPC : MonoBehaviour
     private void Start()
     {
         Initialize();
-
-        if (goals == null || goals.Length <= 0)
-        {
-            Debug.LogError($"<color=white>{nameof(NPC)}</color>: Array <color=red>{nameof(goals)}</color> is null or does not have any values. Please assign a Transform value in the inspector.");
-        }
-        else
-        {
-            StartCoroutine(NavigateToGoalTarget());
-        }        
+        StartCoroutine(NavigateToGoalTarget());
     }
 
     private void Initialize()
@@ -41,21 +33,25 @@ public class NPC : MonoBehaviour
 
     private IEnumerator NavigateToGoalTarget()
     {
-        if(goals.Length > 0)
+        if (goals == null || goals.Length <= 0)
         {
-            while (true)
-            {
-                yield return null;
-                SetAgentDestinationGoal(goals[goalIndex]);
-            }
+            Debug.LogError($"<color=white>{nameof(NPC)}</color>: Array <color=red>{nameof(goals)}</color> is null or does not have any values. Please assign a Transform value in the inspector.");
+            yield break;
         }
+
+        while (true)
+        {
+            yield return null;
+            SetAgentDestinationGoal(goals[goalIndex]);
+        }
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Waypoint")
+        if (other.tag == "Waypoint")
         {
-            if(other.transform == goals[goalIndex])
+            if (other.transform == goals[goalIndex])
             {
                 IncrementGoalIndex();
             }
@@ -64,7 +60,7 @@ public class NPC : MonoBehaviour
 
     private void IncrementGoalIndex()
     {
-        goalIndex = (goalIndex >= goals.Length-1) ? 0 : ++goalIndex;
+        goalIndex = (goalIndex >= goals.Length - 1) ? 0 : ++goalIndex;
         Debug.Log($"{nameof(goalIndex)}: {goalIndex}");
     }
 }
