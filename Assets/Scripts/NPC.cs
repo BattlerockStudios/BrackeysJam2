@@ -6,7 +6,26 @@ using UnityEngine.AI;
 [RequireComponent(typeof(Rigidbody))]
 public class NPC : MonoBehaviour
 {
+    public enum State
+    {
+        Idle,
+        Moving,
+        LoveStruck
+    }
+
+    #region Public Variables
+
     public Transform[] goals;
+
+    #endregion
+
+    #region Private Variables
+
+    [SerializeField]
+    private State m_state = State.Idle;
+
+    [SerializeField]
+    private float m_maxIdleTime = 5.0f;
 
     // TJS: keeps track of which goal is the next target
     private int goalIndex = 0;
@@ -14,11 +33,36 @@ public class NPC : MonoBehaviour
     private NavMeshAgent m_agent;
     private Rigidbody m_rigidbody;
 
+    #endregion
+
+    #region Unity Methods
+
     private void Start()
     {
         Initialize();
         StartCoroutine(NavigateToGoalTarget());
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Waypoint")
+        {
+            if (m_state == State.LoveStruck)
+            {
+                return;
+            }
+
+            if (other.transform == goals[goalIndex])
+            {
+                IncrementGoalIndex();
+                m_state = (State)Random.Range((int)State.Idle, (int)State.Moving + 1);               
+            }
+        }
+    }
+
+    #endregion
+
+    #region Private Methods
 
     private void Initialize()
     {
@@ -42,20 +86,25 @@ public class NPC : MonoBehaviour
         while (true)
         {
             yield return null;
-            SetAgentDestinationGoal(goals[goalIndex]);
-        }
-
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Waypoint")
-        {
-            if (other.transform == goals[goalIndex])
+            switch (m_state)
             {
-                IncrementGoalIndex();
+                case State.Moving:
+                    SetAgentDestinationGoal(goals[goalIndex]);
+                    break;
+                case State.Idle:
+                    yield return new WaitForSeconds(Random.Range(0, m_maxIdleTime));
+                    m_state = State.Moving;
+                    break;
+                case State.LoveStruck:
+                    // TODO-TJS: Add some custom behaviour for an NPC when they are LoveStruck
+                    break;
+                default:
+                    yield return new WaitForSeconds(Random.Range(0, m_maxIdleTime));
+                    m_state = State.Moving;
+                    break;
             }
         }
+
     }
 
     private void IncrementGoalIndex()
@@ -63,4 +112,6 @@ public class NPC : MonoBehaviour
         goalIndex = (goalIndex >= goals.Length - 1) ? 0 : ++goalIndex;
         Debug.Log($"{nameof(goalIndex)}: {goalIndex}");
     }
+
+    #endregion
 }
