@@ -15,6 +15,7 @@ public class Arrow : MonoBehaviour
         {
             var npc = collision.gameObject.GetComponent<NPC>();
             npc.CurrentState = NPC.State.LoveStruck;
+            GameManager.Instance.matchCount++;
         }
     }
 
