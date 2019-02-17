@@ -10,6 +10,12 @@ public class Arrow : MonoBehaviour
         transform.SetParent(collision.transform, worldPositionStays: true);
         transform.localScale = Vector3.one;
         enabled = false;
+
+        if (collision.gameObject.GetComponent<NPC>() == true)
+        {
+            var npc = collision.gameObject.GetComponent<NPC>();
+            npc.CurrentState = NPC.State.LoveStruck;
+        }
     }
 
 }

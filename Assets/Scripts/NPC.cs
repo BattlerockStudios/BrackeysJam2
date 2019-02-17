@@ -17,6 +17,8 @@ public class NPC : MonoBehaviour
 
     public Transform[] goals;
 
+    public Transform heartParticles;
+
     #endregion
 
     #region Private Variables
@@ -32,6 +34,8 @@ public class NPC : MonoBehaviour
 
     private NavMeshAgent m_agent;
     private Rigidbody m_rigidbody;
+
+    public State CurrentState { get => m_state; set => m_state = value; }
 
     #endregion
 
@@ -55,7 +59,7 @@ public class NPC : MonoBehaviour
             if (other.transform == goals[goalIndex])
             {
                 IncrementGoalIndex();
-                m_state = (State)Random.Range((int)State.Idle, (int)State.Moving + 1);               
+                m_state = (State)Random.Range((int)State.Idle, (int)State.Moving + 1);
             }
         }
     }
@@ -68,6 +72,12 @@ public class NPC : MonoBehaviour
     {
         m_agent = GetComponent<NavMeshAgent>();
         m_rigidbody = GetComponent<Rigidbody>();
+
+        if (heartParticles == null)
+        {
+            Debug.LogError($"<color=white>{nameof(NPC)}</color>: Transform: {nameof(heartParticles)} is null. Disabling this monobehaviour.");
+            this.enabled = false;
+        }
     }
 
     private void SetAgentDestinationGoal(Transform goalTransform)
@@ -96,15 +106,14 @@ public class NPC : MonoBehaviour
                     m_state = State.Moving;
                     break;
                 case State.LoveStruck:
-                    // TODO-TJS: Add some custom behaviour for an NPC when they are LoveStruck
-                    break;
+                    heartParticles.gameObject.SetActive(true);
+                    yield break;
                 default:
                     yield return new WaitForSeconds(Random.Range(0, m_maxIdleTime));
                     m_state = State.Moving;
                     break;
             }
         }
-
     }
 
     private void IncrementGoalIndex()
