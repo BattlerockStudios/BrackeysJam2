@@ -32,9 +32,11 @@ public class GameManager : MonoBehaviour
 
         set
         {
-            if(m_matchCount >= MAX_MATCH_COUNT)
+            if(value >= MAX_MATCH_COUNT)
             {
                 value = MAX_MATCH_COUNT;
+                blindfoldImage.gameObject.SetActive(false);
+                m_readyToStart = false;
             }
             m_matchCount = value;
 
@@ -82,7 +84,7 @@ public class GameManager : MonoBehaviour
 
         m_readyToStart = true;
 
-        blindfoldImage.gameObject.SetActive(m_readyToStart);
+        blindfoldImage.gameObject.SetActive(true);
     }
 
     #endregion

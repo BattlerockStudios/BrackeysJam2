@@ -12,11 +12,10 @@ public class Arrow : MonoBehaviour
         enabled = false;
 
         if (collision.gameObject.GetComponent<NPC>() == true)
-        {
-            collision.collider.enabled = false;
+        {            
             var npc = collision.gameObject.GetComponent<NPC>();
             npc.CurrentState = NPC.State.LoveStruck;
-            GameManager.Instance.MatchCount++;
+            collision.collider.enabled = false;
         }
     }
 

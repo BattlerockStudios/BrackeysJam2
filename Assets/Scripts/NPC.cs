@@ -35,7 +35,19 @@ public class NPC : MonoBehaviour
     private NavMeshAgent m_agent;
     private Rigidbody m_rigidbody;
 
-    public State CurrentState { get => m_state; set => m_state = value; }
+    public State CurrentState { get => m_state;
+
+        set
+        {
+            if (value == State.LoveStruck)
+            {
+                heartParticles.gameObject.SetActive(true);
+                GameManager.Instance.MatchCount++;
+            }
+
+            m_state = value;
+        }
+    }
 
     #endregion
 
@@ -94,8 +106,7 @@ public class NPC : MonoBehaviour
         }
 
         while (true)
-        {
-            yield return null;
+        {        
             switch (m_state)
             {
                 case State.Moving:
@@ -106,13 +117,13 @@ public class NPC : MonoBehaviour
                     m_state = State.Moving;
                     break;
                 case State.LoveStruck:
-                    heartParticles.gameObject.SetActive(true);
                     yield break;
                 default:
                     yield return new WaitForSeconds(Random.Range(0, m_maxIdleTime));
                     m_state = State.Moving;
                     break;
             }
+            yield return null;
         }
     }
 
