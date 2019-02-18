@@ -31,6 +31,8 @@ public class TitleScreenController : MonoBehaviour
     /// <returns></returns>
     public IEnumerator FadeThenLoad(float fadeTime)
     {
+        Debug.Log($"<color=white>{nameof(TitleScreenController)}</color>: Starting loading/unloading coroutine.");
+
         loadingText.gameObject.SetActive(true);
 
         var color = fadeToBlackImage.color;
@@ -47,10 +49,14 @@ public class TitleScreenController : MonoBehaviour
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("LevelOne", LoadSceneMode.Additive);
 
+        Debug.Log($"<color=white>{nameof(TitleScreenController)}</color>: Started loading LevelOne scene.");
+
         while (asyncLoad.isDone == false)
         {
             yield return null;
         }
+
+        Debug.Log($"<color=white>{nameof(TitleScreenController)}</color>: Finished loading LevelOne scene.");
 
         titleScreenTextObject.SetActive(false);
         loadingText.gameObject.SetActive(false);
@@ -62,6 +68,18 @@ public class TitleScreenController : MonoBehaviour
             color.a -= fadeTime;
             fadeToBlackImage.color = color;
         }
+
         AsyncOperation asyncUnload = SceneManager.UnloadSceneAsync("TitleScreen", UnloadSceneOptions.UnloadAllEmbeddedSceneObjects);
+
+        Debug.Log($"<color=white>{nameof(TitleScreenController)}</color>: Started unloading TitleScreen scene.");
+
+        while (asyncUnload.isDone == false)
+        {
+            yield return null;
+        }
+
+        Debug.Log($"<color=white>{nameof(TitleScreenController)}</color>: Finished loading TitleScreen scene.");
+
+        Debug.Log($"<color=white>{nameof(TitleScreenController)}</color>: Finished loading/unloading coroutine.");
     }
 }
