@@ -12,7 +12,7 @@ public class cupidcontroller : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && GameManager.Instance.ReadyToStart == true)
         {
             var ray = m_camera.ScreenPointToRay(Input.mousePosition);
             var copy = Instantiate(m_arrowPrefab);
