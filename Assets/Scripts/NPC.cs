@@ -3,8 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
-[RequireComponent(typeof(Rigidbody))]
-public class NPC : MonoBehaviour
+public class NPC : MonoBehaviour, IArrowTarget
 {
     public enum State
     {
@@ -18,6 +17,10 @@ public class NPC : MonoBehaviour
     public Transform[] goals;
 
     public Transform heartParticles;
+
+    public AudioSource sfxSource;
+
+    public AudioClip hitClip;
 
     #endregion
 
@@ -33,20 +36,12 @@ public class NPC : MonoBehaviour
     private int goalIndex = 0;
 
     private NavMeshAgent m_agent;
-    private Rigidbody m_rigidbody;
+    private NPC m_loveInterest;
 
-    public State CurrentState { get => m_state;
-
-        set
-        {
-            if (value == State.LoveStruck)
-            {
-                heartParticles.gameObject.SetActive(true);
-                GameManager.Instance.MatchCount++;
-            }
-
-            m_state = value;
-        }
+    public State CurrentState
+    {
+        get => m_state;
+        set => m_state = value;
     }
 
     #endregion
@@ -63,7 +58,7 @@ public class NPC : MonoBehaviour
     {
         if (other.tag == "Waypoint")
         {
-            if (m_state == State.LoveStruck)
+            if (CurrentState == State.LoveStruck)
             {
                 return;
             }
@@ -71,9 +66,16 @@ public class NPC : MonoBehaviour
             if (other.transform == goals[goalIndex])
             {
                 IncrementGoalIndex();
-                m_state = (State)Random.Range((int)State.Idle, (int)State.Moving + 1);
+                CurrentState = (State)UnityEngine.Random.Range((int)State.Idle, (int)State.Moving + 1);
             }
         }
+    }
+
+    public void FallInLoveWith(NPC otherNPC)
+    {
+        m_loveInterest = otherNPC;
+        CurrentState = NPC.State.LoveStruck;
+        heartParticles.gameObject.SetActive(true);
     }
 
     #endregion
@@ -83,7 +85,6 @@ public class NPC : MonoBehaviour
     private void Initialize()
     {
         m_agent = GetComponent<NavMeshAgent>();
-        m_rigidbody = GetComponent<Rigidbody>();
 
         if (heartParticles == null)
         {
@@ -94,7 +95,8 @@ public class NPC : MonoBehaviour
 
     private void SetAgentDestinationGoal(Transform goalTransform)
     {
-        m_agent.destination = goalTransform.position;
+        NavMesh.SamplePosition(goalTransform.position, out NavMeshHit hit, float.MaxValue, NavMesh.AllAreas);
+        m_agent.destination = hit.position;
     }
 
     private IEnumerator NavigateToGoalTarget()
@@ -106,21 +108,22 @@ public class NPC : MonoBehaviour
         }
 
         while (true)
-        {        
-            switch (m_state)
+        {
+            switch (CurrentState)
             {
                 case State.Moving:
                     SetAgentDestinationGoal(goals[goalIndex]);
                     break;
                 case State.Idle:
-                    yield return new WaitForSeconds(Random.Range(0, m_maxIdleTime));
-                    m_state = State.Moving;
+                    yield return new WaitForSeconds(UnityEngine.Random.Range(0, m_maxIdleTime));
+                    CurrentState = State.Moving;
                     break;
                 case State.LoveStruck:
-                    yield break;
+                    SetAgentDestinationGoal(m_loveInterest.transform);
+                    break;
                 default:
-                    yield return new WaitForSeconds(Random.Range(0, m_maxIdleTime));
-                    m_state = State.Moving;
+                    yield return new WaitForSeconds(UnityEngine.Random.Range(0, m_maxIdleTime));
+                    CurrentState = State.Moving;
                     break;
             }
             yield return null;
@@ -131,6 +134,15 @@ public class NPC : MonoBehaviour
     {
         goalIndex = (goalIndex >= goals.Length - 1) ? 0 : ++goalIndex;
         Debug.Log($"{nameof(goalIndex)}: {goalIndex}");
+    }
+
+    void IArrowTarget.OnHitByArrow(Arrow arrow)
+    {
+        if (CurrentState != State.LoveStruck)
+        {
+            GameManager.Instance.SetHitTarget(this);
+            sfxSource.PlayOneShot(hitClip);
+        }
     }
 
     #endregion
