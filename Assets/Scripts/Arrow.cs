@@ -24,7 +24,7 @@ public class Arrow : MonoBehaviour
     {
         m_audioSource.PlayOneShot(m_hitSound);
         transform.SetParent(collision.transform, worldPositionStays: true);
-        transform.localScale = Vector3.one;
+        //transform.localScale = Vector3.one;
 
         var colliders = transform.GetComponentsInChildren<Collider>();
         foreach (var item in colliders)
