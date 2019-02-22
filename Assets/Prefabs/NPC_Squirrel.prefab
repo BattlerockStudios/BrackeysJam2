@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &9089494991632484
+--- !u!114 &4577005158871166767
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9,10 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 8675792261652074216}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82a92aa7c9bc3b24386f1d34053a4fb0, type: 3}
+  m_Script: {fileID: 11500000, guid: c8c62453846d3684dab2fbae09bcbcf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colors: []
+  textureArray:
+  - {fileID: 2800000, guid: 3f56e634741b2ea409d67d55e41bfe74, type: 3}
+  - {fileID: 2800000, guid: dfd06df430442e446ab8177d3e89f2a5, type: 3}
 --- !u!1001 &6810587902008172124
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20,11 +22,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1722006986273022735, guid: b42e4c3ef87ee144c877f64f61e77aad,
-        type: 3}
-      propertyPath: m_Name
-      value: NPC_Squirrel
-      objectReference: {fileID: 0}
     - target: {fileID: 1722006986273022729, guid: b42e4c3ef87ee144c877f64f61e77aad,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -80,11 +77,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1722006986273022735, guid: b42e4c3ef87ee144c877f64f61e77aad,
+        type: 3}
+      propertyPath: m_Name
+      value: NPC_Squirrel
+      objectReference: {fileID: 0}
     - target: {fileID: 1722006986273022734, guid: b42e4c3ef87ee144c877f64f61e77aad,
         type: 3}
       propertyPath: heartParticles
       value: 
       objectReference: {fileID: 761604711066790764}
+    - target: {fileID: 1722006986273022734, guid: b42e4c3ef87ee144c877f64f61e77aad,
+        type: 3}
+      propertyPath: sfxSource
+      value: 
+      objectReference: {fileID: 8996618922183641541}
     - target: {fileID: 6058980801740240177, guid: b42e4c3ef87ee144c877f64f61e77aad,
         type: 3}
       propertyPath: moveWithCustomTransform
@@ -125,6 +132,12 @@ PrefabInstance:
 --- !u!4 &5287751143069220181 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1722006986273022729, guid: b42e4c3ef87ee144c877f64f61e77aad,
+    type: 3}
+  m_PrefabInstance: {fileID: 6810587902008172124}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &8996618922183641541 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 2476549485477844889, guid: b42e4c3ef87ee144c877f64f61e77aad,
     type: 3}
   m_PrefabInstance: {fileID: 6810587902008172124}
   m_PrefabAsset: {fileID: 0}

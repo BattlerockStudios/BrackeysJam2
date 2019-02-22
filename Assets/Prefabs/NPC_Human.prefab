@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &1776431298827499474
+--- !u!114 &5662606224539278941
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9,10 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 587947927832895289}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82a92aa7c9bc3b24386f1d34053a4fb0, type: 3}
+  m_Script: {fileID: 11500000, guid: c8c62453846d3684dab2fbae09bcbcf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colors: []
+  textureArray:
+  - {fileID: 2800000, guid: 356a14b2b5d2c3847936ccba2066e8f4, type: 3}
+  - {fileID: 2800000, guid: c9b7cb3c452d8cc409972cc0abaac5a3, type: 3}
+  - {fileID: 2800000, guid: 04c24e21daee1634d813cda0090a8f46, type: 3}
+  - {fileID: 2800000, guid: 02c3532ec46e760488f6ad61240de16c, type: 3}
+  - {fileID: 2800000, guid: a6557b4615317d74ea1dc7c8d5449e35, type: 3}
+  - {fileID: 2800000, guid: 99b1519f45f0dfa45925e4acb94b47fb, type: 3}
+  - {fileID: 2800000, guid: 180e1cf351aa319468ed55a99a8b9d1b, type: 3}
+  - {fileID: 2800000, guid: c5f6b6a2841dde343844ad22e3b4314d, type: 3}
+  - {fileID: 2800000, guid: a6569738c6f5a3142be8989f71a26891, type: 3}
 --- !u!1001 &587947927832992153
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -83,11 +92,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1722006986273022735, guid: b42e4c3ef87ee144c877f64f61e77aad,
-        type: 3}
-      propertyPath: m_Name
-      value: NPC_Human
-      objectReference: {fileID: 0}
     - target: {fileID: 1722006986273022729, guid: b42e4c3ef87ee144c877f64f61e77aad,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -143,6 +147,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1722006986273022735, guid: b42e4c3ef87ee144c877f64f61e77aad,
+        type: 3}
+      propertyPath: m_Name
+      value: NPC_Human
+      objectReference: {fileID: 0}
     - target: {fileID: 1722006986273022734, guid: b42e4c3ef87ee144c877f64f61e77aad,
         type: 3}
       propertyPath: goals.Array.data[0]
@@ -163,6 +172,11 @@ PrefabInstance:
       propertyPath: heartParticles
       value: 
       objectReference: {fileID: 5729312879680414845}
+    - target: {fileID: 1722006986273022734, guid: b42e4c3ef87ee144c877f64f61e77aad,
+        type: 3}
+      propertyPath: sfxSource
+      value: 
+      objectReference: {fileID: 4163914272547391188}
     - target: {fileID: 6058980801740240177, guid: b42e4c3ef87ee144c877f64f61e77aad,
         type: 3}
       propertyPath: moveWithCustomTransform
@@ -188,6 +202,12 @@ PrefabInstance:
 --- !u!4 &896925925063782980 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1722006986273022729, guid: b42e4c3ef87ee144c877f64f61e77aad,
+    type: 3}
+  m_PrefabInstance: {fileID: 1988138413765202253}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &4163914272547391188 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 2476549485477844889, guid: b42e4c3ef87ee144c877f64f61e77aad,
     type: 3}
   m_PrefabInstance: {fileID: 1988138413765202253}
   m_PrefabAsset: {fileID: 0}
