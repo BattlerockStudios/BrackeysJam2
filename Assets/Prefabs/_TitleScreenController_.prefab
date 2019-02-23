@@ -718,6 +718,7 @@ GameObject:
   - component: {fileID: 6096876723651552291}
   - component: {fileID: 6096876723651552290}
   - component: {fileID: 6171640709734303183}
+  - component: {fileID: 1391389286399133399}
   m_Layer: 5
   m_Name: _TitleScreenController_
   m_TagString: Untagged
@@ -800,3 +801,25 @@ MonoBehaviour:
   fadeToBlackImage: {fileID: 6096876722433354297}
   loadingText: {fileID: 4482907347056981319}
   titleScreenTextObject: {fileID: 557290584248186888}
+--- !u!114 &1391389286399133399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6171640709734303182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 0
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 800, y: 600}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
