@@ -133,6 +133,11 @@ PrefabInstance:
       propertyPath: m_BaseOffset
       value: 0.15
       objectReference: {fileID: 0}
+    - target: {fileID: 1722006986273022733, guid: b42e4c3ef87ee144c877f64f61e77aad,
+        type: 3}
+      propertyPath: m_WalkableMask
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b42e4c3ef87ee144c877f64f61e77aad, type: 3}
 --- !u!4 &8815607216844766158 stripped

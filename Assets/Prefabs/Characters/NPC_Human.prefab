@@ -197,6 +197,11 @@ PrefabInstance:
       propertyPath: m_Height
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1722006986273022733, guid: b42e4c3ef87ee144c877f64f61e77aad,
+        type: 3}
+      propertyPath: m_WalkableMask
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b42e4c3ef87ee144c877f64f61e77aad, type: 3}
 --- !u!4 &896925925063782980 stripped
