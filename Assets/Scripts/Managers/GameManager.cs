@@ -2,11 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-
     #region Private Constants
 
     private const int MAX_COUPLE_COUNT = 2;
@@ -53,6 +53,8 @@ public class GameManager : MonoBehaviour
     // or we can use something else to limit the player's view
     public Image blindfoldImage;
 
+    public GameObject winningTextObject;
+
     #endregion
 
     #region Public Methods
@@ -86,7 +88,11 @@ public class GameManager : MonoBehaviour
             blindfoldImage.gameObject.SetActive(false);
             m_readyToStart = false;
 
+            winningTextObject.SetActive(true);
+
             m_audioSource.PlayOneShot(m_victoryClip);
+
+            StartCoroutine(WaitForInputToConfirmGameRestart());
         }
 
         UpdateGameText();
@@ -126,6 +132,16 @@ public class GameManager : MonoBehaviour
         m_readyToStart = true;
 
         blindfoldImage.gameObject.SetActive(true);
+    }
+
+    private IEnumerator WaitForInputToConfirmGameRestart()
+    {
+        while (Input.GetKeyDown(KeyCode.Space) == false)
+        {
+            yield return null;
+        }
+
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
     }
 
     #endregion
